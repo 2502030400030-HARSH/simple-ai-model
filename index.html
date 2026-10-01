@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Simple AI Chatbot</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f5f9;
+        }
+
+        .container {
+            width: 400px;
+            max-width: 95%;
+            margin: 60px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #2563eb;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .chat-box {
+            height: 400px;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .message {
+            padding: 10px 14px;
+            margin: 10px 0;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .user {
+            background: #2563eb;
+            color: white;
+            margin-left: auto;
+        }
+
+        .bot {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .input-area {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        button {
+            margin-left: 8px;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        🤖 Simple AI
+    </div>
+
+    <div class="chat-box" id="chatBox">
+
+        <div class="message bot">
+            Hello! 👋 I am your simple AI. How can I help you?
+        </div>
+
+    </div>
+
+    <div class="input-area">
+
+        <input
+            type="text"
+            id="userInput"
+            placeholder="Ask something..."
+            onkeypress="handleKey(event)"
+        >
+
+        <button onclick="sendMessage()">
+            Send
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+function sendMessage() {
+
+    let input = document.getElementById("userInput");
+    let message = input.value.trim();
+
+    if (message === "") {
+        return;
+    }
+
+    // Show user message
+    addMessage(message, "user");
+
+    input.value = "";
+
+    // Simple demo AI response
+    setTimeout(function() {
+
+        let response = getAIResponse(message);
+
+        addMessage(response, "bot");
+
+    }, 500);
+}
+
+
+function addMessage(message, type) {
+
+    let chatBox = document.getElementById("chatBox");
+
+    let div = document.createElement("div");
+
+    div.className = "message " + type;
+
+    div.innerText = message;
+
+    chatBox.appendChild(div);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+
+function getAIResponse(message) {
+
+    message = message.toLowerCase();
+
+    if (message.includes("hello") || message.includes("hi")) {
+        return "Hello! 👋 Nice to meet you.";
+    }
+
+    if (message.includes("name")) {
+        return "I am Simple AI 🤖";
+    }
+
+    if (message.includes("how are you")) {
+        return "I am doing great! 😊";
+    }
+
+    if (message.includes("bye")) {
+        return "Goodbye! 👋";
+    }
+
+    return "I am a simple AI demo. You can connect me to a real AI model later.";
+}
+
+
+function handleKey(event) {
+
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+
+}
+
+</script>
+
+</body>
+</html>
